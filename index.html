@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>miniVue</title>
+</head>
+<body>
+  <!--1.创建一个视图容器-->
+  <div id="app">
+    <span v-text="message"></span><br/>
+    <!--{{message}}<br/>-->
+    <input type="text" v-model="message"/><br/>
+    <span v-text="username"></span><br/>
+  </div>
+  <!--2.引入函数-->
+  <!--/*<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>*/-->
+  <script src="js/TemplateCompiler.js"></script>
+  <script src="js/mvvm.js"></script>
+  <!--3.编写脚本-->
+  <script>
+    var vm=new MVVM({
+      //挂载视图
+      el:"#app",
+      //定义数据
+      data:{
+        message:"今天我来学习vue.js",
+        username:"yangyu"
+      }
+
+    });
+  </script>
+</body>
+</html>
