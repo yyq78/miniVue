@@ -79,7 +79,7 @@ compileElement(node){
         var expr = attr.value;
         //5.找帮手
         
-        CompilerUtils.text(node,compiler.vm,expr);
+        CompilerUtils[type](node,compiler.vm,expr);
      }
   })
 
@@ -97,11 +97,22 @@ CompilerUtils={
        //2.执行方法
        updaterFn && updaterFn(node,vm.$data[expr]);
    },
+   //解析model指令
+   model(node,vm,expr){
+       //1.找到更新方法
+       var updaterFn=this.updater['modelUpdater'];
+       //2.执行方法
+       updaterFn && updaterFn(node,vm.$data[expr]);
+   },
    //更新规则对象
    updater:{
      //文本更新函数
      textUpdater(node,value){
        node.textContent=value;
+     },
+     //model更新函数
+     modelUpdater(node,value){
+       node.value=value;
      }
    }
 }
