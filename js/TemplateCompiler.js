@@ -53,9 +53,17 @@ compile(parent){
   if(compiler.isElementNode(node)){//1)属性节点（解析指令）
      compiler.compileElement(node);
   }
+  else{ //2)文本节点（解析表达式）
+    //定义文本表达式验证规则
+    var expr=node.textContent;
+    var reg=/\{\{(.+)\}\}/;//{{message}}
+    if(reg.test(expr)){
+      expr=RegExp.$1;
+      compiler.compileText(node,expr);
+    }
+  }
      
-     //2)文本节点（解析表达式）
-
+    
 
   //*4）如果还有子节点，继续解析（递归）
    })
@@ -85,7 +93,9 @@ compileElement(node){
 
 }
 //解析表达式的
-compilerText(){}
+compileText(node,expr){
+    CompilerUtils.text(node,this.vm,expr);
+}
 //************************************* */
 }
 //帮手
