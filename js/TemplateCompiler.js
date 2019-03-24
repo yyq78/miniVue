@@ -113,6 +113,12 @@ CompilerUtils={
        var updaterFn=this.updater['modelUpdater'];
        //2.执行方法
        updaterFn && updaterFn(node,vm.$data[expr]);
+       debugger;
+       //3.视图到模型
+       node.addEventListener('input',(e)=>{
+         var newValue=e.target.value;
+        vm.$data[expr]=newValue;
+       });
    },
    //更新规则对象
    updater:{
