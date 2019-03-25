@@ -102,18 +102,33 @@ compileText(node,expr){
 CompilerUtils={
   //解析text指令
    text(node,vm,expr){
+     /*   第一次 */
        //1.找到更新方法
        var updaterFn=this.updater['textUpdater'];
        //2.执行方法
        updaterFn && updaterFn(node,vm.$data[expr]);
+    /*   第N+1次 */
+      //1)需要使用订阅功能的节点
+      //2)全局vm对象，用于获取数据
+      //3）发布时需要做的事情
+     
+      new watcher(vm,expr,(newValue)=>{
+        //触发订阅时，按照之前的规则，对节点进行更新
+          updaterFn(node,newValue);
+      });
    },
    //解析model指令
    model(node,vm,expr){
+      /*   第一次 */
        //1.找到更新方法
        var updaterFn=this.updater['modelUpdater'];
        //2.执行方法
        updaterFn && updaterFn(node,vm.$data[expr]);
-       debugger;
+       //对model指令添加一个订阅者
+       new watcher(vm,expr,(newValue)=>{
+          //触发订阅时，按照之前的规则，对节点进行更新
+          updaterFn(node,newValue);
+       });
        //3.视图到模型
        node.addEventListener('input',(e)=>{
          var newValue=e.target.value;
