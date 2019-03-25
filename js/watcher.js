@@ -1,8 +1,8 @@
 //声明一个订阅者
 class watcher{
     //构造函数
-      //1)需要使用订阅功能的节点
-      //2)全局vm对象，用于获取数据
+      //1)全局vm对象，用于获取数据
+      //2)表达式      
       //3）发布时需要做的事情
 
     constructor(vm,expr,cb){
@@ -10,7 +10,6 @@ class watcher{
       this.vm=vm;
       this.expr=expr;
       this.cb=cb;
-
       //缓存当前值
       this.value=this.get();  
 
@@ -21,6 +20,7 @@ class watcher{
       Dep.target=this;//watcher实例
       //获取当前值
        var value=this.vm.$data[this.expr];
+       
        //清空全局
        Dep.target=null;
       //返回

@@ -54,20 +54,20 @@ class Observer{
 //创建订阅管理者（发布者）
   //1.管理订阅者
   //2.通知
-  class Dep{
-    constructor(){
-        this.subs=[];
-    }
-
-    //添加订阅
-    addSub(sub){//其实就是watcher实例
-      this.subs.push(sub);
-    }
-    //集体通知
-    notify(){
-      this.subs.forEach((sub)=>{
-         sub.update();
-      })
-    }
+class Dep{
+  constructor(){
+      this.subs=[];
   }
+
+  //添加订阅
+  addSub(sub){//其实就是watcher实例
+    this.subs.push(sub);
+  }
+  //集体通知
+  notify(){
+    this.subs.forEach((sub)=>{
+        sub.update();
+    })
+  }
+}
   
